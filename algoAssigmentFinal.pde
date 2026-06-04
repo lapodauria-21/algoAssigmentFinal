@@ -1,22 +1,28 @@
+general g;
+void setup(){
+    fullScreen();
+    g = new general(width/2, height/2, 0);
+}
+
 void draw(){
-  background(255);
-  fill(0);
-  textSize(20);
-  text("Click to add points", 10, 30);
-  
-  // Draw the points
-  for (PVector point : points) {
-    fill(0);
-    ellipse(point.x, point.y, 10, 10);
-  }
-  
-  // If there are at least two points, draw the lines between them
-  if (points.size() > 1) {
-    stroke(0);
-    for (int i = 0; i < points.size() - 1; i++) {
-      PVector p1 = points.get(i);
-      PVector p2 = points.get(i + 1);
-      line(p1.x, p1.y, p2.x, p2.y);
+    background(255);
+    g.moveCar();
+    g.displayCar();
+}
+
+void keyPressed(){
+    if (keyCode == 'a' || keyCode == 'A'){
+        g.speed += 5;
     }
-  }
+    else if (keyCode == 'd' || keyCode == 'D'){
+        g.speed -= 5;
+    }
+}
+
+void keyReleased(){
+    g.speed = 0;
+}
+
+void mousePressed(){
+    g.clickCar(mouseX, mouseY);
 }
