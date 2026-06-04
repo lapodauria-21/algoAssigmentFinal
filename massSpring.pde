@@ -7,19 +7,19 @@ class MSDS {
   float damping;
   float springConstant;
   PVector position;
-  PVector anchor;
   float restLength;
   float velocity;
   float displacement;
   float connectedForce;
+  PVector anchor;
 
   MSDS(float mass, float segmentLength, float springConstant, float damping, PVector position) {
     this.segmentLength = segmentLength;
     this.mass = mass;
     this.damping = damping;
     this.springConstant = springConstant;
-    this.anchor = position.copy(); // so we have aqn ancor to the original position
     this.restLength = segmentLength;
+    this.anchor = position;
     this.position = new PVector(position.x, position.y + restLength); // initial position is below the anchor
     this.force = 0;
     this.velocity = 0;
