@@ -1,4 +1,6 @@
 // general class that contains the car and the some compoents
+
+// yo this is fire
 class general{
     int x;
     int y;
