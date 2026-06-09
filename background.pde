@@ -1,10 +1,20 @@
 // clas for backfeound
 class background{
     float x, y;
-    //float speed;
-    background(float x, float y){
+
+    ArrayList<Mountain> mountains;
+
+    float speed;
+    background(float x, float y, float speed){
         this.x = x;
         this.y = y;
+
+        this.speed = speed;
+
+        this.mountains = new ArrayList<Mountain>();
+        // Create mountains with different colors
+        mountains.add(new Mountain(0, 0.01, 80, y - 50, color(50, 100, 50)));
+        mountains.add(new Mountain(0, 0.008, 60, y - 30, color(80, 130, 80)));
         //this.speed = speed;
     }
 
@@ -24,7 +34,15 @@ class background{
         if (x <= -40){
             x = 0;
         }
-    }   
+    }
 
+    void displayMountains(float currentSpeed){
+        for (Mountain m : mountains) {
+           
+            m.scrollSpeed = currentSpeed / 500.0;
+            m.update();
+            m.display();
+        }
+    }
 
 }

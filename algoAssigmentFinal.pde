@@ -12,10 +12,10 @@ void draw(){
 
 void keyPressed(){
     if (keyCode == 'a' || keyCode == 'A'){
-        g.speed += 5;
+        g.speed += 0.45;
     }
     else if (keyCode == 'd' || keyCode == 'D'){
-        g.speed -= 5;
+        g.speed -= 0.45;
     }
 }
 
