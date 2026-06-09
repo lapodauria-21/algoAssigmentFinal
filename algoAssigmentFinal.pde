@@ -16,6 +16,7 @@ void keyPressed(){
     }
     else if (keyCode == 'd' || keyCode == 'D'){
         g.speed -= 0.45;
+    
     }
 }
 

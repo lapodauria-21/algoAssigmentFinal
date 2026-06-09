@@ -20,7 +20,7 @@ class background{
 
     void displayRoad(){
         fill(50);
-        rect(x, y, width, height/2);
+        rect(x, y, width+300, height/2);
 
         fill(0);
         for (int i = 0; i < width; i += 40){

@@ -15,19 +15,21 @@ class general{
     PVector RightPosition;
     
     general(float x, float y, float speed){
-        this.posX = x;
+        this.posX = x/2;
         this.posY = y;
         this.speed = speed;
         this.ps = new ParticleSystem();
         this.backGround = new background(0, height/2, speed);
-        LeftPosition = new PVector(x + 10, posY );
-        RightPosition = new PVector(x + 40, posY );
+        LeftPosition = new PVector(x/2 + 10, posY );
+        RightPosition = new PVector(x/2 + 40, posY );
         left = new MSDS(1, 20, 0.3, 0.4, LeftPosition);
         right = new MSDS(1, 20, 0.3, 0.4, RightPosition);
     }
     
     void moveCar(){
         posY += speed;
+
+        limitSpeed();
 
         LeftPosition.y = posY + 10;
         RightPosition.y = posY + 10;
@@ -47,6 +49,12 @@ class general{
         }
         else if (posY + 20 > backGround.y + height/2){
             posY = backGround.y + height/2 - 20;
+        }
+    }
+
+    void limitSpeed(){
+        if (speed <= 0){
+            speed = 0;
         }
     }
 
