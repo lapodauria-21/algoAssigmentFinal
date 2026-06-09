@@ -1,13 +1,14 @@
 // clas for backfeound
 class background{
-    float x, y;
+    //float x, y;
+    PVector position;
 
     ArrayList<Mountain> mountains;
 
     float speed;
     background(float x, float y, float speed){
-        this.x = x;
-        this.y = y;
+        this.position = new PVector(x, y);
+        this.speed = speed  ;
 
         this.speed = speed;
 
@@ -20,19 +21,19 @@ class background{
 
     void displayRoad(){
         fill(50);
-        rect(x, y, width+300, height/2);
+        rect(position.x, position.y, width+300, height/2);
 
         fill(0);
         for (int i = 0; i < width; i += 40){
-            rect(x + i, y + height/4 - 5, 20, 10);
+            rect(position.x + i, position.y + height/4 - 5, 20, 10);
         }
     }
 
     void moveRoad(float speed){
         displayRoad();
-        x -= speed;
-        if (x <= -40){
-            x = 0;
+        position.x -= speed;
+        if (position.x <= -40){
+            position.x = 0;
         }
     }
 

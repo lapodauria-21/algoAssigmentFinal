@@ -2,10 +2,12 @@
 
 // yo this is fire
 class general{
-    float posX;
-    float posY;
+    //float posX;
+    //float posY;
     float speed;
     float speedY;
+
+    PVector pos;
 
     ParticleSystem ps;
     background backGround;
@@ -18,25 +20,24 @@ class general{
     boolean isDayTime = false;
     
     general(float x, float y, float speed){
-        this.posX = x/2;
-        this.posY = y;
+        this.pos = new PVector(x/2, y);
         this.speed = speed;
         this.speedY = 0;
         this.ps = new ParticleSystem();
         this.backGround = new background(0, height/2, speed);
-        LeftPosition = new PVector(x/2 + 10, posY );
-        RightPosition = new PVector(x/2 + 40, posY );
+        LeftPosition = new PVector(x/2 + 10, pos.y );
+        RightPosition = new PVector(x/2 + 40, pos.y );
         left = new MSDS(1, 20, 0.3, 0.4, LeftPosition);
         right = new MSDS(1, 20, 0.3, 0.4, RightPosition);
     }
     
     void moveCar(){
-        posY += speedY;
+        pos.y += speedY;
 
         //startVelocity();
 
-        LeftPosition.y = posY + 10;
-        RightPosition.y = posY + 10;
+        LeftPosition.y = pos.y + 10;
+        RightPosition.y = pos.y  + 10;
 
         left.update();
         right.update();
@@ -56,19 +57,19 @@ class general{
     }
 */
     void limitCar(){
-        if (posY < backGround.y){
-            posY = backGround.y;
+        if (pos.y < backGround.position.y){
+            pos.y = backGround.position.y;
         }
-        else if (posY + 20 > backGround.y + height/2){
-            posY = backGround.y + height/2 - 20;
+        else if (pos.y + 20 > backGround.position.y + height/2){
+            pos.y = backGround.position.y + height/2 - 20;
         }
     } 
 
     void displayCar(){
         noStroke();
         fill(255, 0, 0);
-        rect(posX, posY, 50, 20);
-        rect(posX + 10, posY - 10, 30, 10);
+        rect(pos.x, pos.y, 50, 20);
+        rect(pos.x + 10, pos.y - 10, 30, 10);
 
         fill(0);
         ellipse(left.position.x, left.position.y, 20, 20);
@@ -83,13 +84,13 @@ class general{
 
     void showParticles(){
         for (int i = 0; i < 5; i++){
-            ps.addParticle(new PVector(posX, posY + 10));
+            ps.addParticle(new PVector(pos.x, pos.y + 10));
         }
         ps.update();
     }
 
     void clickCar(int mouseX, int mouseY){
-        if (mouseX >= posX && mouseX <= posX + 50 && mouseY >= posY && mouseY <= posY + 20) {
+        if (mouseX >= pos.x && mouseX <= pos.x + 50 && mouseY >= pos.y && mouseY <= pos.y + 20) {
             left.applayForce(5);
             right.applayForce(5);
 
