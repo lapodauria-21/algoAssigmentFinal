@@ -7,6 +7,8 @@ class background{
 
     ArrayList<Cloud> clouds;
 
+    stars[] stars;
+
     float speed;
     background(float x, float y, float speed){
         this.position = new PVector(x, y);
@@ -23,6 +25,11 @@ class background{
         this.clouds = new ArrayList<Cloud>();
         for (int i = 0; i < 5; i++) {
         clouds.add(new Cloud());
+        }
+
+        this.stars = new stars[1000];
+        for (int i = 0; i < stars.length; i++) {
+            stars[i] = new stars();
         }
 
     }
@@ -64,6 +71,9 @@ class background{
         } else {
             fill(0); 
             rect(0, 0, width, height/2);
+            for(int i = 0; i < stars.length; i++){
+                stars[i].displayStars();
+            }
         }
     }
 
