@@ -12,16 +12,21 @@ void draw(){
 
 void keyPressed(){
     if (keyCode == 'a' || keyCode == 'A'){
-        g.speed += 0.45;
+        //g.posY += 5;
+        g.speed += 2;
+        g.speedY += 2;
     }
     else if (keyCode == 'd' || keyCode == 'D'){
-        g.speed -= 0.45;
+        //g.posY -= 5;
+        g.speed += 2;
+        g.speedY -= 2;
     
     }
 }
 
 void keyReleased(){
     g.speed = 0;
+    g.speedY = 0;
 }
 
 void mousePressed(){

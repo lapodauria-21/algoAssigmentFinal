@@ -5,6 +5,7 @@ class general{
     float posX;
     float posY;
     float speed;
+    float speedY;
 
     ParticleSystem ps;
     background backGround;
@@ -18,6 +19,7 @@ class general{
         this.posX = x/2;
         this.posY = y;
         this.speed = speed;
+        this.speedY = 0;
         this.ps = new ParticleSystem();
         this.backGround = new background(0, height/2, speed);
         LeftPosition = new PVector(x/2 + 10, posY );
@@ -27,9 +29,9 @@ class general{
     }
     
     void moveCar(){
-        posY += speed;
+        posY += speedY;
 
-        limitSpeed();
+        //startVelocity();
 
         LeftPosition.y = posY + 10;
         RightPosition.y = posY + 10;
@@ -42,7 +44,13 @@ class general{
         backGround.moveRoad(speed);
         limitCar();
     }
-
+/*
+    void startVelocity(){
+        if (posY != 0){
+            speed = 0.45;
+        }
+    }
+*/
     void limitCar(){
         if (posY < backGround.y){
             posY = backGround.y;
@@ -50,13 +58,7 @@ class general{
         else if (posY + 20 > backGround.y + height/2){
             posY = backGround.y + height/2 - 20;
         }
-    }
-
-    void limitSpeed(){
-        if (speed <= 0){
-            speed = 0;
-        }
-    }
+    } 
 
     void displayCar(){
         noStroke();
