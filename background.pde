@@ -5,6 +5,8 @@ class background{
 
     ArrayList<Mountain> mountains;
 
+    ArrayList<Cloud> clouds;
+
     float speed;
     background(float x, float y, float speed){
         this.position = new PVector(x, y);
@@ -17,6 +19,12 @@ class background{
         mountains.add(new Mountain(0, 0.01, 80, y - 50, color(50, 100, 50)));
         mountains.add(new Mountain(0, 0.008, 60, y - 30, color(80, 130, 80)));
         //this.speed = speed;
+
+        this.clouds = new ArrayList<Cloud>();
+        for (int i = 0; i < 5; i++) {
+        clouds.add(new Cloud());
+        }
+
     }
 
     void displayRoad(){
@@ -47,10 +55,15 @@ class background{
     }
 
     void displaySky(boolean toggle){
-        if (toggle) {
-            background(135, 206, 235);
-        } if (!toggle) {
-            background(0);
+        if (!toggle) {
+            fill(135, 206, 235); 
+            rect(0, 0, width, height/2);
+            for (Cloud c : clouds) {
+                c.displayClouds();
+            }
+        } else {
+            fill(0); 
+            rect(0, 0, width, height/2);
         }
     }
 

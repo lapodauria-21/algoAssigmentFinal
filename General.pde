@@ -59,11 +59,21 @@ class general{
     void limitCar(){
         if (pos.y < backGround.position.y){
             pos.y = backGround.position.y;
+            stopTier();
         }
         else if (pos.y + 20 > backGround.position.y + height/2){
             pos.y = backGround.position.y + height/2 - 20;
+           stopTier();
         }
     } 
+
+    void stopTier(){ //this was suggested by ChatGPT becuase we coundn't figure out a way to stop the tiers to continue moving
+        speedY = 0;
+        left.velocity = 0;
+        left.displacement = 0;
+        right.velocity = 0;
+        right.displacement = 0;
+    }
 
     void displayCar(){
         noStroke();
