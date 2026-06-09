@@ -45,4 +45,12 @@ class background{
         }
     }
 
+    void displaySky(boolean toggle){
+        if (toggle) {
+            background(135, 206, 235);
+        } if (!toggle) {
+            background(0);
+        }
+    }
+
 }

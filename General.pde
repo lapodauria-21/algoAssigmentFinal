@@ -15,6 +15,8 @@ class general{
     PVector LeftPosition;
     PVector RightPosition;
     
+    boolean isDayTime = false;
+    
     general(float x, float y, float speed){
         this.posX = x/2;
         this.posY = y;
@@ -38,6 +40,8 @@ class general{
 
         left.update();
         right.update();
+
+        backGround.displaySky(isDayTime);
 
         backGround.displayMountains(speed);
 
@@ -88,6 +92,8 @@ class general{
         if (mouseX >= posX && mouseX <= posX + 50 && mouseY >= posY && mouseY <= posY + 20) {
             left.applayForce(5);
             right.applayForce(5);
+
+            isDayTime = !isDayTime;
         }
     }
 }
