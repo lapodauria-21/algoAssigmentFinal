@@ -1,34 +1,35 @@
-general g;
+/*
+this is the main class 
+we only create the most important objects here
+that is the car
+*/
+
+Car car;
 void setup(){
     fullScreen();
-    g = new general(width/2, height/2, 0);
+    car = new Car(width/2, height/2, 0);
 }
 
 void draw(){
     background(255);
-    g.moveCar();
-    g.displayCar();
+    car.moveCar();
+    car.displayCar();
 }
 
 void keyPressed(){
-    if (keyCode == 'a' || keyCode == 'A'){
-        //g.posY += 5;
-        g.speed += 2;
-        g.speedY += 2;
+    if (keyCode == 's' || keyCode == 'S'){
+        car.accelerate(2);
     }
-    else if (keyCode == 'd' || keyCode == 'D'){
-        //g.posY -= 5;
-        g.speed += 2;
-        g.speedY -= 2;
+    else if (keyCode == 'w' || keyCode == 'W'){
+        car.accelerate(-2);
     
     }
 }
 
 void keyReleased(){
-    g.speed = 0;
-    g.speedY = 0;
+    car.decelerate();
 }
 
 void mousePressed(){
-    g.clickCar(mouseX, mouseY);
+    car.clickCar(mouseX, mouseY);
 }

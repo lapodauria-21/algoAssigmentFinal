@@ -1,5 +1,4 @@
-// A class to describe a single particle
-
+// A class to describe a single particle --> based on an assigment
 class Particle{
      PVector position;
   PVector velocity;

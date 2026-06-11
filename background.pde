@@ -1,4 +1,6 @@
 // clas for backfeound
+// we are adding the mountains, the stars and the cloud and also the road
+
 class background{
     //float x, y;
     PVector position;
@@ -12,22 +14,22 @@ class background{
     float speed;
     background(float x, float y, float speed){
         this.position = new PVector(x, y);
-        this.speed = speed  ;
-
         this.speed = speed;
 
-        this.mountains = new ArrayList<Mountain>();
+        //this.speed = speed;
+
+        this.mountains = new ArrayList<Mountain>(); // inizialinzing the array list
         // Create mountains with different colors
-        mountains.add(new Mountain(0, 0.01, 80, y - 50, color(50, 100, 50)));
+        mountains.add(new Mountain(0, 0.01, 80, y - 50, color(50, 100, 50))); // we call two mountains with intial speed of 0 so they do not start mooving
         mountains.add(new Mountain(0, 0.008, 60, y - 30, color(80, 130, 80)));
         //this.speed = speed;
 
-        this.clouds = new ArrayList<Cloud>();
+        this.clouds = new ArrayList<Cloud>(); // same thing for thew clouds but we used a foor loop
         for (int i = 0; i < 5; i++) {
-        clouds.add(new Cloud());
+        clouds.add(new Cloud()); 
         }
 
-        this.stars = new stars[1000];
+        this.stars = new stars[1000]; // fixed number for the ammount of stars
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new stars();
         }
@@ -36,32 +38,32 @@ class background{
 
     void displayRoad(){
         fill(50);
-        rect(position.x, position.y, width+300, height/2);
+        rect(position.x, position.y, width+300, height/2); // create the basic sturcture of the road
 
-        fill(0);
-        for (int i = 0; i < width; i += 40){
+        fill(0); 
+        for (int i = 0; i < width; i += 40){ // with this create the different lanes
             rect(position.x + i, position.y + height/4 - 5, 20, 10);
         }
     }
 
     void moveRoad(float speed){
-        displayRoad();
-        position.x -= speed;
-        if (position.x <= -40){
+        displayRoad(); // we call the display method
+        position.x -= speed; // simulate the movment based on the speed
+        if (position.x <= -40){ 
             position.x = 0;
         }
     }
 
     void displayMountains(float currentSpeed){
-        for (Mountain m : mountains) {
+        for (Mountain m : mountains) { // for every element inside the array 
            
-            m.scrollSpeed = currentSpeed / 500.0;
+            m.scrollSpeed = currentSpeed / 500.0; // speed of the scroll based on the current speed 
             m.update();
             m.display();
         }
     }
 
-    void displaySky(boolean toggle){
+    void displaySky(boolean toggle){ // this is a method with a toogle based on the mouse click --> then we display every thing iside both arrays
         if (!toggle) {
             fill(135, 206, 235); 
             rect(0, 0, width, height/2);

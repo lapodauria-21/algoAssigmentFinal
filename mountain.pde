@@ -1,3 +1,7 @@
+/*
+this was part of an assigment for week 2 we had to use Perlin noise to crete a mountain
+*/
+
 class Mountain {
 
   float noiseOff;
@@ -20,8 +24,7 @@ class Mountain {
   // gets mountain height at a specific x position
   float heightAt(int px) {
     // moise gives smooth terrain and map converts values into screen coordinates
-    return map(
-      noise(noiseOff + px * noiseStep), 0, 1, baseY - amplitude, baseY);
+    return map(noise(noiseOff + px * noiseStep), 0, 1, baseY - amplitude, baseY);
   }
 
   void update() {

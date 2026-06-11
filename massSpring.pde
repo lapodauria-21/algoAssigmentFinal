@@ -1,4 +1,4 @@
-// Mass Spring Damper Syetemn 
+// Mass Spring Damper Syetemn --> based on the assigment
 
 class MSDS {
   float segmentLength;

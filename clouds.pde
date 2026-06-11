@@ -1,3 +1,8 @@
+/*
+class for the cloud
+we base the movment on PV vectors that stats with a random position
+*/
+
 class Cloud {
 PVector positionOfClouds;
 float speedOfClouds;
@@ -19,10 +24,10 @@ void CreateClouds() {
 }
 
 void updateClouds() {
-    positionOfClouds.x += speedOfClouds;
+    positionOfClouds.x += speedOfClouds; // we increment the position with the speed and when the clouds are out of the scene 
     if (positionOfClouds.x > width + 60) {
-        positionOfClouds.x = -60;
-        positionOfClouds.y = random(height/2);
+        positionOfClouds.x = -60; // start with position of -60
+        positionOfClouds.y = random(height/2); // random position of y
     }
 }
 
