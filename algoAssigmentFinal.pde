@@ -8,7 +8,7 @@ Car car;
 void setup(){
     fullScreen();
     noSmooth();
-    car = new Car(width/2, height/2, 6); // background starts moving immediately
+    car = new Car(width/2, height/2, 4); // background starts moving immediately
 }
 
 void draw(){

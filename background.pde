@@ -61,7 +61,7 @@ PImage img;
 
     void moveRoad(float speed){
         displayRoad(); // we call the display method
-        position.x -= speed; // simulate the movment based on the speed
+        position.x -= speed/100; // simulate the movment based on the speed
         if (position.x <= -40){ 
             position.x = 0;
         }
