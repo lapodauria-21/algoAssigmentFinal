@@ -7,7 +7,8 @@ that is the car
 Car car;
 void setup(){
     fullScreen();
-    car = new Car(width/2, height/2, 0);
+    noSmooth();
+    car = new Car(width/2, height/2, 6); // background starts moving immediately
 }
 
 void draw(){

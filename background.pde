@@ -11,6 +11,10 @@ class background{
 
     stars[] stars;
 
+ArrayList<Boid> boidOne;
+ArrayList<Boid> boidTwo;
+PImage img;
+
     float speed;
     background(float x, float y, float speed){
         this.position = new PVector(x, y);
@@ -23,6 +27,15 @@ class background{
         mountains.add(new Mountain(0, 0.01, 80, y - 50, color(50, 100, 50))); // we call two mountains with intial speed of 0 so they do not start mooving
         mountains.add(new Mountain(0, 0.008, 60, y - 30, color(80, 130, 80)));
         //this.speed = speed;
+
+        boidOne = new ArrayList<Boid>();
+        boidTwo = new ArrayList<Boid>();
+        img = loadImage("swallows-bird-martins-bird-saw-wings-bird-isolated-swallows-bird-flying-with-wings-spread-png.png");
+
+  for (int i = 0; i < 20; i++) {
+    boidOne.add(new Boid(random(0, width), random(0, height/2), img));
+    boidTwo.add(new Boid(random(0, width), random(0, height/2), img));
+}
 
         this.clouds = new ArrayList<Cloud>(); // same thing for thew clouds but we used a foor loop
         for (int i = 0; i < 5; i++) {
@@ -78,5 +91,14 @@ class background{
             }
         }
     }
+
+void displayBoide(){
+        for (Boid b : boidOne) {
+            b.run(boidOne);
+        }
+        for (Boid a: boidTwo){
+            a.run(boidTwo);
+        }
+}
 
 }
