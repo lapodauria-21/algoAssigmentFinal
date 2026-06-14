@@ -1,72 +1,83 @@
-class Obstacle{
+/*
+This class is based on creating obstacles using three images; however, if that doesn't work, 
+orange obstacles are generated instead.
+Fixed after hours of troubleshooting thanks to AI
+*/
+
+class Obstacle {
     PVector position;
-  float w, h; 
-  float speed; 
-  boolean active; 
-  color baseColor;
-  color currentColor;
-  int hitTimer, randomNumber;
+    float w, h;
+    float speed;
+    boolean active;
+    int hitTimer;
 
-  //loader of immages 
-  PImage imgOne,imgTwo, imgThree;
+    PImage imgOne, imgTwo, imgThree;
+    PImage currentImg; 
 
+    Obstacle(float x, float y, float speed) {
+        this.position = new PVector(x, y);
+        this.speed    = speed;
+        this.active   = true;
+        this.hitTimer = 0;
 
+        imgOne   = loadImage("WhatsApp Image 2026-06-14 at 4.24.35 PM (1).png");
+        imgTwo   = loadImage("WhatsApp Image 2026-06-14 at 4.24.35 PM (2).png");
+        imgThree = loadImage("WhatsApp Image 2026-06-14 at 4.24.35 PM.png");
 
-  Obstacle(float x, float y, float speed){
-    this.position = new PVector(x, y);
-    this.w = random(25, 50);
-    this.h = random(20, 40);
-    this.speed = speed;
-    this.active = true;
-    this.baseColor = color(255, 140, 0);
-    this.currentColor = baseColor;
-    this.hitTimer   = 0;
-  }
+        
+        int randomNumber = (int) random(3);
+        switch (randomNumber) {
+            case 0:  currentImg = imgOne;   break;
+            case 1:  currentImg = imgTwo;   break;
+            default: currentImg = imgThree; break;
+        }
 
-  void update(float currentSpeed){
-    position.x -= (currentSpeed +2);
-    if (position.x + w < 0){
-        active = false;
-    } 
-
-    if (hitTimer > 0){
-        hitTimer --;
-        currentColor = color (255, 0 ,0);
-    }
-    else {
-        currentColor = baseColor;
-    }
-  }
-
-  void display(){
-    if (!active){
-        return;
-    }
-    noStroke();
-    fill(currentColor);
-    rect(position.x, position.y, w, h, 6);
-
-    fill(50, 80, 120, 200);
-    rect(position.x + w * 0.6, position.y + h * 0.1, w * 0.3, h * 0.5, 3);
-  }
-  boolean isHit(float cx, float cy, float cw, float ch){
-      return cx < position.x + w  && cx + cw > position.x && cy < position.y + h  && cy + ch > position.y;
-  }
-
-  void triggerTheHit(){
-    hitTimer = 30;
-  }
-
-  void randomObsacle(){
-    randomNumber = (int) random(0, 2);
-    switch (randomNumber){
-        case 0:
-       imgOne = loadImage("WhatsApp Image 2026-06-14 at 4.24.35 PM (1).png");
-       case 1:
-       imgTwo = loadImage("WhatsApp Image 2026-06-14 at 4.24.35 PM (2).png");
-       case 2:
-   imgThree = loadImage("WhatsApp Image 2026-06-14 at 4.24.35 PM.png"); 
+        
+        if (currentImg != null) {
+            float targetH = 60;
+            float ratio   = (float) currentImg.width / currentImg.height; // making bit smaller
+            this.h = targetH;
+            this.w = targetH * ratio;
+        } else {
+            this.w = random(25, 50);
+            this.h = random(20, 40);
+        }
     }
 
-  }
+    void update(float currentSpeed) {
+        position.x -= (currentSpeed + 2);
+        if (position.x + w < 0) {
+            active = false;
+        }
+        if (hitTimer > 0) {
+            hitTimer--;
+        }
+    }
+
+    void display() {
+        if (!active) return;
+
+        if (currentImg != null) {
+            if (hitTimer > 0) {
+                tint(255, 80, 80);
+            } else {
+                noTint();
+            }
+            imageMode(CORNER);
+            image(currentImg, position.x, position.y, w, h);
+            noTint();
+        } else {
+            noStroke(); // backup
+            fill(hitTimer > 0 ? color(255, 0, 0) : color(255, 140, 0));
+            rect(position.x, position.y, w, h, 6);
+        }
+    }
+
+    boolean isHit(float cx, float cy, float cw, float ch) {
+        return cx < position.x + w && cx + cw > position.x && cy < position.y + h && cy + ch > position.y;
+    }
+
+    void triggerTheHit() {
+        hitTimer = 30;
+    }
 }

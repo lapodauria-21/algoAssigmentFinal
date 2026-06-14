@@ -117,35 +117,6 @@ class Boid {
       velocity.y *= -1;
     }
   }
- /*
-  // Avoid obstacle
-  void avoidObstacle(Obstacle obs) {
-    float distance = PVector.dist(position, obs.position);
-    float minDistance = obs.radius + r + 20; // Add buffer zone
-    
-    if (distance < minDistance) {
-      PVector away = PVector.sub(position, obs.position);
-      away.normalize();
-      away.mult(maxspeed);
-      PVector steer = PVector.sub(away, velocity);
-      steer.limit(maxforce * 2);
-      applyForce(steer);
-      wereOverlapping = true;
-      obs.c = color(255, 0, 0, 150); // Change color to red when overlapping
-
-    }
-    else {
-      if (wereOverlapping) {
-        obs.c = color(0, 0, 0, 150); // Change back to original color when not overlapping
-        wereOverlapping = false;
-      }
-    }
-  }
-    */
-
-    void limitBoid(){
-
-    }
 
   // Separation
   // Method checks for nearby boids and steers away

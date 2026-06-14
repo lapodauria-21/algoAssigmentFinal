@@ -1,6 +1,6 @@
 // clas for backfeound
 // we are adding the mountains, the stars and the cloud and also the road
-
+//We also load an image that is assigned to the boid to represent the birds.
 class background{
     //float x, y;
     PVector position;
