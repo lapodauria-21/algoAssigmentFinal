@@ -1,5 +1,0 @@
-This is where we are going to write where and what we changed
-for now i have created three classes
-- car class that become the general class
-- the particle staff
-- and a class where we have the general design of eveythig we are going to design
