@@ -16,16 +16,16 @@ ArrayList<Boid> boidTwo;
 PImage img;
 
     float speed;
-    background(float x, float y, float speed){
-        this.position = new PVector(x, y);
+    background(float speed){
+        this.position = new PVector(0, height/2);
         this.speed = speed;
 
         //this.speed = speed;
 
         this.mountains = new ArrayList<Mountain>(); // inizialinzing the array list
         // Create mountains with different colors
-        mountains.add(new Mountain(0, 0.01, 80, y - 50, color(50, 100, 50))); // we call two mountains with intial speed of 0 so they do not start mooving
-        mountains.add(new Mountain(0, 0.008, 60, y - 30, color(80, 130, 80)));
+        mountains.add(new Mountain(100, 0.01, 80, position.y - 50, color(50, 100, 50))); // we call two mountains with intial speed of 0 so they do not start mooving
+        mountains.add(new Mountain(0, 0.008, 60, position.y - 30, color(80, 130, 80)));
         //this.speed = speed;
 
         boidOne = new ArrayList<Boid>();
@@ -59,19 +59,19 @@ PImage img;
         }
     }
 
-    void moveRoad(float speed){
-        displayRoad(); // we call the display method
+    void moveRoad(){
+        //displayRoad(); // we call the display method
         position.x -= speed/100; // simulate the movment based on the speed
         if (position.x <= -40){ 
             position.x = 0;
         }
     }
 
-    void displayMountains(float currentSpeed){
+    void displayMountains(){
         for (Mountain m : mountains) { // for every element inside the array 
            
-            m.scrollSpeed = currentSpeed / 500.0; // speed of the scroll based on the current speed 
-            m.update();
+            //m.scrollSpeed = currentSpeed / 500.0; // speed of the scroll based on the current speed 
+            //m.update();
             m.display();
         }
     }
@@ -99,6 +99,33 @@ void displayBoide(){
         for (Boid a: boidTwo){
             a.run(boidTwo);
         }
+}
+
+void update(float currentSpeed){
+    this.speed = currentSpeed;
+    moveRoad();
+    for (Mountain m : mountains){
+        m.scrollSpeed = currentSpeed / 500;
+        m.update();
+    }
+}
+
+void display(boolean isNight){
+    displaySky(isNight);
+    displayMountains();
+    displayRoad();
+    displayBoide();
+}
+
+void accelerate(float ammount){
+    speed = max(0, speed + (ammount*-1));
+}
+
+float roadTop(){
+    return position.y;
+}
+float roadBottom(){
+    return position.y + height/2;
 }
 
 }

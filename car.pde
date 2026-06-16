@@ -8,7 +8,7 @@ class Car{
     PVector pos;
 
     ParticleSystem ps;
-    background backGround;
+    //background backGround;
 
     MSDS left; // MSDS was given thanks to an assigment
     MSDS right;
@@ -27,25 +27,34 @@ class Car{
     boolean isDayTime = false;
 
     // collision variables
-    ArrayList<Obstacle> obstacles;
-    int spawnTimer, Intervall, hitCoolDown;
+    //ArrayList<Obstacle> obstacles;
+    //int spawnTimer, Intervall, hitCoolDown;
+
+    int hitCoolDown;
         
-    Car(float x, float y, float speed){
-        this.pos = new PVector(x/2, y);
-        this.speedBackground = speed;
-        this.speedCar = 0;
+    Car(PVector positionOriginal){
+        this.pos = positionOriginal.copy();
+        this.speedBackground = 4;
+        this. speedCar = 0;
+
+
+
+        
+        //this.pos = new PVector(x/2, y);
+        //this.speedBackground = speed;
+        //this.speedCar = 0;
         this.ps = new ParticleSystem();
-        this.backGround = new background(0, height/2, speed);
-        this.obstacles = new ArrayList<Obstacle>();
-        this.spawnTimer = 0;
+        //this.backGround = new background(0, height/2, speed);
+        //this.obstacles = new ArrayList<Obstacle>();
+        //this.spawnTimer = 0;
         this.hitCoolDown = 0;
-        LeftPosition = new PVector(x/2 + 10, pos.y );
-        RightPosition = new PVector(x/2 + 40, pos.y );
+        LeftPosition = new PVector(pos.x + 10, pos.y + heightCar /2);
+        RightPosition = new PVector(pos.x + 40, pos.y + heightCar /2);
         left = new MSDS(1, 20, 0.3, 0.4, LeftPosition);
         right = new MSDS(1, 20, 0.3, 0.4, RightPosition);
     }
     
-    void moveCar(){
+    void moveCar(float roadTop, float roadBottom){
         pos.y += speedCar; // update the car based in the position 
 
         //startVelocity();
@@ -56,27 +65,30 @@ class Car{
         left.update();
         right.update();
 
-        updateBackground();
-        limitCar();
+        //updateBackground();
+        limitCar(roadTop, roadBottom);
 
-        if (speedBackground > 0){
-            spawnTheObstacle();
-            updateObstacles();
-        }
+        //if (speedBackground > 0){
+        //    spawnTheObstacle();
+        //    updateObstacles();
+        //}
         if (hitCoolDown > 0){
             hitCoolDown --;
         }
     }
-
+/*
     void updateBackground(){ 
         backGround.displaySky(isDayTime);
         backGround.displayMountains(speedBackground);
         backGround.moveRoad(speedBackground);
         backGround.displayBoide();
     }
+        */
 
     void accelerate(float acceleration){ // move the car only vertically while background keeps scrolling
+        /*
         speedCar += acceleration;
+        //speedBackground = acceleration ;
         if (acceleration < 0){
             speedBackground += (acceleration*-1);
         }
@@ -84,19 +96,37 @@ class Car{
             speedBackground += acceleration;
         }
         //speedBackground += acceleration;
+        */
+        speedCar += acceleration;
+        speedBackground += acceleration;
+
+    if (speedCar > 8){
+        speedCar = 8;
+    }
+    if (speedCar < -8){
+        speedCar = -8;
+    }
+
+    if (acceleration < 0){
+        speedBackground += (acceleration*-1);
+    }
+    else{
+        speedBackground += acceleration;
+    }
+        
     }
 
     void decelerate(){ // stop only the car movement, background stays moving
         speedCar = 0;
     }
 
-    void limitCar(){ // limit the position of the car 
-        if (pos.y < backGround.position.y){
-            pos.y = backGround.position.y;
+    void limitCar(float roadTop, float roadBottom){ // limit the position of the car 
+        if (pos.y < roadTop){
+            pos.y = roadTop;
             stopTier();
         }
-        else if (pos.y + 20 > backGround.position.y + height/2){
-            pos.y = backGround.position.y + height/2 - 20;
+        else if (pos.y + heightCar > roadBottom){
+            pos.y = roadBottom - heightCar;
            stopTier();
         }
     } 
@@ -122,9 +152,9 @@ class Car{
        
         showParticles();
 
-        for (Obstacle obs : obstacles){
-            obs.display();
-        }
+        //for (Obstacle obs : obstacles){
+        //    obs.display();
+        //}
     
     }
 
@@ -135,15 +165,15 @@ class Car{
         ps.update(); // update the particle system
     }
 
-    void clickCar(int mouseX, int mouseY){
-        if (mouseX >= pos.x && mouseX <= pos.x + widthCar && mouseY >= pos.y && mouseY <= pos.y + heightCar) { // check if mouse is inside the car --> based on Module 1 
+    void clickCar(PVector click){
+        if (click.x >= pos.x && click.x <= pos.x + widthCar && click.y >= pos.y && click.y <= pos.y + heightCar) { // check if mouse is inside the car --> based on Module 1 
             left.applayForce(5);
             right.applayForce(5);
 
             isDayTime = !isDayTime; // change the boolean so we can display a different sky
         }
     }
-    
+    /*
     void spawnTheObstacle(){
         spawnTimer++;
          Intervall = max(40, 120 - (int) speedBackground * 5);
@@ -173,6 +203,7 @@ class Car{
             }
         }
     }
+        */
 
     void itCollided(){
         hitCoolDown = 60;

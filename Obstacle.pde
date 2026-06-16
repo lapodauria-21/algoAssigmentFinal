@@ -73,8 +73,8 @@ class Obstacle {
         }
     }
 
-    boolean isHit(float cx, float cy, float cw, float ch) {
-        return cx < position.x + w && cx + cw > position.x && cy < position.y + h && cy + ch > position.y;
+    boolean isHit(PVector posCar, float cw, float ch) {
+        return posCar.x < position.x + w && posCar.x + cw > position.x && posCar.y < position.y + h && posCar.y + ch > position.y;
     }
 
     void triggerTheHit() {
