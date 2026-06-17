@@ -17,11 +17,15 @@ class Background{
     PImage img;
 
     float speed;
+    int nStars, nBirds;
 
     // consttoctor of the class -- to inizialize the objects & parameters
-    Background(float speed){ // we need the speed of the background for this parameters
+    Background(float speed, int nOfStars, int nOfBirds){ // we need the speed of the background for this parameters
         this.position = new PVector(0, height/2);
         this.speed = speed;
+
+        this.nStars = nOfStars;
+        this.nBirds = nOfBirds;
 
         this.mountains = new ArrayList<Mountain>(); // inizialinzing the array list
         // Create mountains with different colors
@@ -31,7 +35,7 @@ class Background{
         boidOne = new ArrayList<Boid>();
         img = loadImage("swallows-bird-martins-bird-saw-wings-bird-isolated-swallows-bird-flying-with-wings-spread-png.png");
 
-        for (int i = 0; i < 40; i++) { // we are creating the array for the birds 
+        for (int i = 0; i < nBirds; i++) { // we are creating the array for the birds 
             boidOne.add(new Boid(random(0, width), random(0, height/2), img));
         }
 
@@ -40,7 +44,7 @@ class Background{
         clouds.add(new Cloud()); 
         }
 
-        this.stars = new Stars[1000]; // fixed number for the ammount of stars -- difference with arraylist
+        this.stars = new Stars[nStars]; // fixed number for the ammount of stars -- difference with arraylist
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Stars();
         }

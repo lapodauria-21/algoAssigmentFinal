@@ -3,13 +3,17 @@ this is the main class
 we only create the most important objects here
 that is the car
 */
+// variables that are usually modified by other clasees --> can be assigned only once
+final int N_Stars = 1000;
+final int N_birds = 40;
+final int N_particles = 5;
 
 // we are creating the object responsable for having the whole scene
 Scene scene;
 void setup(){
     fullScreen();
     noSmooth();
-    scene = new Scene();
+    scene = new Scene(N_birds, N_Stars, N_particles);
 }
 // method to draw each frame
 void draw(){

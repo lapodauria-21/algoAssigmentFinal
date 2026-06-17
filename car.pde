@@ -5,6 +5,7 @@ class that is responsable for creating the car and for its movment
 // creating the variables and objects that we need
 class Car{
     float speedBackground,speedCar;
+    int particles;
 
     PVector pos;
 
@@ -27,7 +28,8 @@ class Car{
     int hitCoolDown;
         
     // constorctur -- inizializing the variable, we need the position to create this object as a PVector
-    Car(PVector positionOriginal){
+    Car(PVector positionOriginal, int nOfParticles){
+        particles = nOfParticles;
         this.pos = positionOriginal.copy(); // copy so we do not interfear and risk to change the position
         this.speedBackground = 4;
         this. speedCar = 0;
@@ -115,7 +117,7 @@ class Car{
 
     // method to show thw smoke of the car
     void showParticles(){
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < particles; i++){
             ps.addSmoke(new PVector(pos.x, pos.y + (heightCar/2))); // we are adding the particle based on the position of the car 
         }
         //ps.update(); // update the particle system

@@ -7,9 +7,9 @@ class Scene{
     ObstacleManager obstacles;
 
     // inzizilize each object
-    Scene(){
-        car = new Car(new PVector(width/4, height/2));
-        bg = new Background(4);
+    Scene(int nOfBirds, int nOfStars, int nOfParticles){
+        car = new Car(new PVector(width/4, height/2), nOfParticles);
+        bg = new Background(4, nOfStars, nOfBirds);
         obstacles = new ObstacleManager();
     }
     //method to update the scene 
