@@ -5,11 +5,11 @@ class Particle{
   PVector acceleration;
   float lifespan;
 
-  Particle(PVector l) {
-    acceleration = new PVector(-0.02, -0.02);
-    velocity = new PVector(random(-3, -1), random(-1, 1));
-    position = l.copy();
-    lifespan = 105.0;
+  Particle(PVector spawn) {
+    acceleration = new PVector(0, 0);
+    velocity = new PVector(0,0);
+    position = spawn.copy();
+    lifespan = 100.0;
   }
 
   void run() {
@@ -40,5 +40,29 @@ class Particle{
     else {
       return false;
     }
+  }
+}
+
+class Smoke extends Particle{
+  Smoke(PVector spawn){
+    super (spawn);
+    acceleration = new PVector(-0.02, -0.02);
+    velocity = new PVector(random (-3, 1), random (-1, 1));
+    lifespan = 105;
+  }
+}
+
+class Spark extends Particle{
+  Spark(PVector spawn){
+    super (spawn);
+    acceleration = new PVector(0, 0.15);
+    velocity = PVector.random2D().mult(random(2,6));
+    lifespan = 60;
+  }
+  @Override
+  void display(){
+    noStroke();
+    fill(255, 150, 0, lifespan * 3.5);
+    ellipse(position.x, position.y , 4, 4);
   }
 }

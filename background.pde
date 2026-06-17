@@ -1,54 +1,53 @@
 // clas for backfeound
 // we are adding the mountains, the stars and the cloud and also the road
 //We also load an image that is assigned to the boid to represent the birds.
-class background{
-    //float x, y;
+
+class Background{
+    // creating the objects that are part of the background and their parasmeters
     PVector position;
 
     ArrayList<Mountain> mountains;
 
     ArrayList<Cloud> clouds;
 
-    stars[] stars;
+    Stars[] stars;
 
-ArrayList<Boid> boidOne;
-ArrayList<Boid> boidTwo;
-PImage img;
+    ArrayList<Boid> boidOne;
+    
+    PImage img;
 
     float speed;
-    background(float speed){
+
+    // consttoctor of the class -- to inizialize the objects & parameters
+    Background(float speed){ // we need the speed of the background for this parameters
         this.position = new PVector(0, height/2);
         this.speed = speed;
-
-        //this.speed = speed;
 
         this.mountains = new ArrayList<Mountain>(); // inizialinzing the array list
         // Create mountains with different colors
         mountains.add(new Mountain(100, 0.01, 80, position.y - 50, color(50, 100, 50))); // we call two mountains with intial speed of 0 so they do not start mooving
-        mountains.add(new Mountain(0, 0.008, 60, position.y - 30, color(80, 130, 80)));
-        //this.speed = speed;
+        mountains.add(new Mountain(0, 0.008, 60, position.y - 30, color(80, 130, 80))); 
 
         boidOne = new ArrayList<Boid>();
-        boidTwo = new ArrayList<Boid>();
         img = loadImage("swallows-bird-martins-bird-saw-wings-bird-isolated-swallows-bird-flying-with-wings-spread-png.png");
 
-  for (int i = 0; i < 20; i++) {
-    boidOne.add(new Boid(random(0, width), random(0, height/2), img));
-    boidTwo.add(new Boid(random(0, width), random(0, height/2), img));
-}
+        for (int i = 0; i < 40; i++) { // we are creating the array for the birds 
+            boidOne.add(new Boid(random(0, width), random(0, height/2), img));
+        }
 
-        this.clouds = new ArrayList<Cloud>(); // same thing for thew clouds but we used a foor loop
+        this.clouds = new ArrayList<Cloud>(); // same thing for thew clouds
         for (int i = 0; i < 5; i++) {
         clouds.add(new Cloud()); 
         }
 
-        this.stars = new stars[1000]; // fixed number for the ammount of stars
+        this.stars = new Stars[1000]; // fixed number for the ammount of stars -- difference with arraylist
         for (int i = 0; i < stars.length; i++) {
-            stars[i] = new stars();
+            stars[i] = new Stars();
         }
 
     }
 
+    // method to display the road
     void displayRoad(){
         fill(50);
         rect(position.x, position.y, width+300, height/2); // create the basic sturcture of the road
@@ -59,19 +58,17 @@ PImage img;
         }
     }
 
+    // method to update the road to simulate the movments
     void moveRoad(){
-        //displayRoad(); // we call the display method
         position.x -= speed/100; // simulate the movment based on the speed
         if (position.x <= -40){ 
             position.x = 0;
         }
     }
 
+    // method to display the mountains
     void displayMountains(){
-        for (Mountain m : mountains) { // for every element inside the array 
-           
-            //m.scrollSpeed = currentSpeed / 500.0; // speed of the scroll based on the current speed 
-            //m.update();
+        for (Mountain m : mountains) { // for every element inside the array  -- advance for loop
             m.display();
         }
     }
@@ -92,40 +89,42 @@ PImage img;
         }
     }
 
-void displayBoide(){
+    // display the boide so the birds -- andavce for loop
+    void displayBoide(){
         for (Boid b : boidOne) {
             b.run(boidOne);
         }
-        for (Boid a: boidTwo){
-            a.run(boidTwo);
-        }
-}
-
-void update(float currentSpeed){
-    this.speed = currentSpeed;
-    moveRoad();
-    for (Mountain m : mountains){
-        m.scrollSpeed = currentSpeed / 500;
-        m.update();
     }
-}
 
-void display(boolean isNight){
-    displaySky(isNight);
-    displayMountains();
-    displayRoad();
-    displayBoide();
-}
+    // method to update the mountain and the road based on the current speed
+    void update(float currentSpeed){
+        this.speed = currentSpeed; // assaign to speed of this class the currentSpeed
+        moveRoad();
+        for (Mountain m : mountains){
+            m.scrollSpeed = currentSpeed / 500; // so it doesn't zoom to fast
+            m.update();
+        }
+    }
 
-void accelerate(float ammount){
-    speed = max(0, speed + (ammount*-1));
-}
+    // method to display the bacground -- calling other methods
+    void display(boolean isNight){
+        displaySky(isNight);
+        displayMountains();
+        displayRoad();
+        displayBoide();
+    }
 
-float roadTop(){
-    return position.y;
-}
-float roadBottom(){
-    return position.y + height/2;
-}
+    // method to change the speed -- every time take the maxium between the two values
+    void accelerate(float ammount){
+        speed = max(0, speed + (ammount*-1));
+    }
 
+    // method that return the float for the top road
+    float roadTop(){
+        return position.y;
+    }
+    // method that gives the float for the bottom road
+    float roadBottom(){
+        return position.y + height/2;
+    }
 }

@@ -13,7 +13,8 @@ class MSDS {
   float connectedForce;
   PVector anchor;
 
-  MSDS(float mass, float segmentLength, float springConstant, float damping, PVector position) {
+  //constructor that inizilize the variables that we need
+  MSDS(float mass, float segmentLength, float springConstant, float damping, PVector position) { // we need this elements to make the interactiuons works
     this.segmentLength = segmentLength;
     this.mass = mass;
     this.damping = damping;
@@ -27,6 +28,7 @@ class MSDS {
     this.connectedForce = 0;
   }
 
+  // update the MSDS based on the physics rule
   void update() {
     float springForce = -springConstant * displacement;
     float dampForce = -damping * velocity;
@@ -39,6 +41,7 @@ class MSDS {
     connectedForce = 0;
   }
 
+  // method to applay a force
   void applayForce(float impulse) {
     velocity += impulse;
   }

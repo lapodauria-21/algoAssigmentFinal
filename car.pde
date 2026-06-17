@@ -1,22 +1,21 @@
-// general class that contains the car and the some compoents
-// meaning that we call other objects that the car interact with
+/*
+class that is responsable for creating the car and for its movment
+*/
 
-// yo this is fire
+// creating the variables and objects that we need
 class Car{
     float speedBackground,speedCar;
 
     PVector pos;
 
     ParticleSystem ps;
-    //background backGround;
 
     MSDS left; // MSDS was given thanks to an assigment
     MSDS right;
     
     PVector LeftPosition;
     PVector RightPosition;
-    
-    // variables for describing car
+
   // variables for describing car
     float widthCar = 50;
     float heightCar = 20;
@@ -25,28 +24,14 @@ class Car{
     float roofWidth = 30;
     
     boolean isDayTime = false;
-
-    // collision variables
-    //ArrayList<Obstacle> obstacles;
-    //int spawnTimer, Intervall, hitCoolDown;
-
     int hitCoolDown;
         
+    // constorctur -- inizializing the variable, we need the position to create this object as a PVector
     Car(PVector positionOriginal){
-        this.pos = positionOriginal.copy();
+        this.pos = positionOriginal.copy(); // copy so we do not interfear and risk to change the position
         this.speedBackground = 4;
         this. speedCar = 0;
-
-
-
-        
-        //this.pos = new PVector(x/2, y);
-        //this.speedBackground = speed;
-        //this.speedCar = 0;
         this.ps = new ParticleSystem();
-        //this.backGround = new background(0, height/2, speed);
-        //this.obstacles = new ArrayList<Obstacle>();
-        //this.spawnTimer = 0;
         this.hitCoolDown = 0;
         LeftPosition = new PVector(pos.x + 10, pos.y + heightCar /2);
         RightPosition = new PVector(pos.x + 40, pos.y + heightCar /2);
@@ -54,66 +39,41 @@ class Car{
         right = new MSDS(1, 20, 0.3, 0.4, RightPosition);
     }
     
+    // method resposable to move the car -- we pass the bottom road and top road 
     void moveCar(float roadTop, float roadBottom){
-        pos.y += speedCar; // update the car based in the position 
-
-        //startVelocity();
+        pos.y += speedCar; // update the car position based in the "speed" 
 
         LeftPosition.y = pos.y + heightCar/2; // update the position of the springs of the car based on the position of the car 
         RightPosition.y = pos.y  + heightCar/2;
 
-        left.update();
+        left.update(); // update the MSDS 
         right.update();
 
-        //updateBackground();
-        limitCar(roadTop, roadBottom);
+        limitCar(roadTop, roadBottom); // we have a method to limit the bacground
 
-        //if (speedBackground > 0){
-        //    spawnTheObstacle();
-        //    updateObstacles();
-        //}
-        if (hitCoolDown > 0){
+        if (hitCoolDown > 0){ // condition to make the car "not collide again with an obstacle -- making it invincible for a while"
             hitCoolDown --;
         }
     }
-/*
-    void updateBackground(){ 
-        backGround.displaySky(isDayTime);
-        backGround.displayMountains(speedBackground);
-        backGround.moveRoad(speedBackground);
-        backGround.displayBoide();
-    }
-        */
 
     void accelerate(float acceleration){ // move the car only vertically while background keeps scrolling
-        /*
+
         speedCar += acceleration;
-        //speedBackground = acceleration ;
+        speedBackground += acceleration;
+
+        if (speedCar > 8){
+            speedCar = 8;
+        }
+        if (speedCar < -8){
+            speedCar = -8;
+        }
+
         if (acceleration < 0){
-            speedBackground += (acceleration*-1);
+            speedBackground += (acceleration*-1); // so the bacgound doesn't go back 
         }
         else{
             speedBackground += acceleration;
         }
-        //speedBackground += acceleration;
-        */
-        speedCar += acceleration;
-        speedBackground += acceleration;
-
-    if (speedCar > 8){
-        speedCar = 8;
-    }
-    if (speedCar < -8){
-        speedCar = -8;
-    }
-
-    if (acceleration < 0){
-        speedBackground += (acceleration*-1);
-    }
-    else{
-        speedBackground += acceleration;
-    }
-        
     }
 
     void decelerate(){ // stop only the car movement, background stays moving
@@ -140,7 +100,7 @@ class Car{
         showParticles();
     }
 
-    void displayCar(){ // display the car and only if there is a movment then start the particles
+    void displayCar(){ // display the car
         noStroke();
         fill(255, 0, 0);
         rect(pos.x, pos.y, widthCar, heightCar);
@@ -148,23 +108,21 @@ class Car{
 
         fill(0);
         ellipse(left.position.x, left.position.y, wheelSize, wheelSize);
-       ellipse(right.position.x, right.position.y, wheelSize, wheelSize);
+        ellipse(right.position.x, right.position.y, wheelSize, wheelSize);
        
         showParticles();
 
-        //for (Obstacle obs : obstacles){
-        //    obs.display();
-        //}
-    
     }
 
+    // method to show thw smoke of the car
     void showParticles(){
         for (int i = 0; i < 5; i++){
-            ps.addParticle(new PVector(pos.x, pos.y + (heightCar/2))); // we are adding the particle based on the position of the car 
+            ps.addSmoke(new PVector(pos.x, pos.y + (heightCar/2))); // we are adding the particle based on the position of the car 
         }
         ps.update(); // update the particle system
     }
 
+   // method to make the suspension of the car oscillate based on a PVector click
     void clickCar(PVector click){
         if (click.x >= pos.x && click.x <= pos.x + widthCar && click.y >= pos.y && click.y <= pos.y + heightCar) { // check if mouse is inside the car --> based on Module 1 
             left.applayForce(5);
@@ -173,43 +131,16 @@ class Car{
             isDayTime = !isDayTime; // change the boolean so we can display a different sky
         }
     }
-    /*
-    void spawnTheObstacle(){
-        spawnTimer++;
-         Intervall = max(40, 120 - (int) speedBackground * 5);
 
-        if (spawnTimer >= Intervall) {
-            spawnTimer = 0;
-            // Y casuale all'interno della metà inferiore (la strada)
-            float roadTop = backGround.position.y;
-            float roadBottom = roadTop + height / 2 - heightCar - 10;
-            float obsY = random(roadTop + 5, roadBottom);
-            obstacles.add(new Obstacle(width + 20, obsY, speedBackground));
-        }
-    }
-
-    void updateObstacles(){
-        for (int i = obstacles.size() -1; i >= 0; i--){
-            Obstacle obs = obstacles.get(i);
-            obs.update(speedBackground);
-
-            if(hitCoolDown == 0 && obs.isHit(pos.x, pos.y, widthCar, heightCar)){
-                obs.triggerTheHit();
-                itCollided();
-            }
-
-            if(!obs.active){
-                obstacles.remove(i);
-            }
-        }
-    }
-        */
-
+    // method to start the oscillasition of the suspension and other interaction based if the car has collided
     void itCollided(){
         hitCoolDown = 60;
         left.applayForce(8);
         right.applayForce(8);
         speedBackground = max(0, speedBackground - 2);
         speedCar = 0;
+        for (int i = 0; i<15; i++ ){ // add sparks -- based on the copy of the position
+            ps.addSpark(pos.copy());
+        }
     }
 }
