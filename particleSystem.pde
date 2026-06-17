@@ -7,11 +7,6 @@ ArrayList<Particle> particles;
 ParticleSystem(){
     particles = new ArrayList<Particle>();
 }
-/*
-void addParticle(PVector location){
-    particles.add(new Particle(location));
-}
-    */
 
     void addSpark(PVector pos){
         particles.add(new Spark(pos));
@@ -20,13 +15,13 @@ void addParticle(PVector location){
         particles.add(new Smoke(pos));
     }
     
-void update(){
-    for (int i = particles.size() - 1; i >= 0; i--){
-        Particle p = particles.get(i);
-        p.run();
-        if (p.isDead()){
-            particles.remove(i);
+    void update(){
+        for (int i = particles.size() - 1; i >= 0; i--){
+            Particle p = particles.get(i);
+            p.run();
+            if (p.isDead()){
+                particles.remove(i);
+            }
         }
     }
-  }
 }

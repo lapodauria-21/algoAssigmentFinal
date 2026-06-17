@@ -15,11 +15,6 @@ class Boid {
   float maxspeed;    // Maximum speed
   PImage img;        // Image for this bod
 
-  PVector maxPosition;
-
-  // mnore interaction
-  boolean wereOverlapping = false;
-
   Boid(float x, float y, PImage image) {
     acceleration = new PVector(0,0);
     velocity = new PVector(random(-1,1),random(-1,1));
@@ -29,13 +24,10 @@ class Boid {
     maxforce = 0.05;
     img = image;
 
-    //maxPosition.x = width;
-    //maxPosition.y = height/2;
   }
 
   void run(ArrayList<Boid> boids) {
     flock(boids);
-    //avoidObstacle(obstacle);
     update();
     borders();
     render();

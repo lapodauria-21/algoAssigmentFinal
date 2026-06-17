@@ -32,7 +32,7 @@ class Scene{
         if (key == 's' || key == 'S'){
             car.accelerate(2);
         }
-        else if (key == 'W' || key == 'w' ){
+        else if (key == 'W' || key == 'W' ){
             car.accelerate(-2);
         }
         

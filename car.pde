@@ -59,7 +59,6 @@ class Car{
     void accelerate(float acceleration){ // move the car only vertically while background keeps scrolling
 
         speedCar += acceleration;
-        speedBackground += acceleration;
 
         if (speedCar > 8){
             speedCar = 8;
@@ -97,7 +96,7 @@ class Car{
         left.displacement = 0;
         right.velocity = 0;
         right.displacement = 0;
-        showParticles();
+        //showParticles();
     }
 
     void displayCar(){ // display the car
@@ -111,7 +110,7 @@ class Car{
         ellipse(right.position.x, right.position.y, wheelSize, wheelSize);
        
         showParticles();
-
+        ps.update();
     }
 
     // method to show thw smoke of the car
@@ -119,7 +118,7 @@ class Car{
         for (int i = 0; i < 5; i++){
             ps.addSmoke(new PVector(pos.x, pos.y + (heightCar/2))); // we are adding the particle based on the position of the car 
         }
-        ps.update(); // update the particle system
+        //ps.update(); // update the particle system
     }
 
    // method to make the suspension of the car oscillate based on a PVector click

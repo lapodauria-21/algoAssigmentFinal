@@ -47,7 +47,7 @@ class Smoke extends Particle{
   Smoke(PVector spawn){
     super (spawn);
     acceleration = new PVector(-0.02, -0.02);
-    velocity = new PVector(random (-3, 1), random (-1, 1));
+    velocity = new PVector(random (-3, -1), random (-1, 1));
     lifespan = 105;
   }
 }
