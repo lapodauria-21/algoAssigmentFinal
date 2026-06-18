@@ -14,7 +14,7 @@ class Scene{
     }
     //method to update the scene 
     void updateScene(){
-        bg.update(car.speedBackground); // change the speed of the bacground
+        bg.update(car.speedBackground, new PVector(mouseX, mouseY)); // change the speed of the bacground
         obstacles.update(car.speedBackground, bg.roadTop(), bg.roadBottom(), car.heightCar); // Limit the car and update obstacles
         car.moveCar(bg.roadTop(), bg.roadBottom()); // move car and keep it in the limit
         if(obstacles.checkForCollision(car.pos, car.widthCar, car.heightCar)){ // check for collision then update

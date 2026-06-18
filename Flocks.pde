@@ -26,11 +26,10 @@ class Boid {
 
   }
 
-  void run(ArrayList<Boid> boids) {
-    flock(boids);
+  void run(ArrayList<Boid> boids, PVector pred) {
+    flock(boids, pred);
     update();
     borders();
-    render();
   }
 
   void applyForce(PVector force) {
@@ -39,18 +38,25 @@ class Boid {
   }
 
   // We accumulate a new acceleration each time based on three rules
-  void flock(ArrayList<Boid> boids) {
+  void flock(ArrayList<Boid> boids, PVector predator) {
     PVector sep = separate(boids);   // Separation
     PVector ali = align(boids);      // Alignment
     PVector coh = cohesion(boids);   // Cohesion
+    PVector flee = escape(predator); // to make the flock escape
+
+
     // Arbitrarily weight these forces
     sep.mult(1.5);
     ali.mult(1.0);
     coh.mult(1.0);
+    flee.mult(3.0);
+
+
     // Add the force vectors to acceleration
     applyForce(sep);
     applyForce(ali);
     applyForce(coh);
+    applyForce(flee);
   }
 
   // Method to update position
@@ -189,5 +195,18 @@ class Boid {
     } else {
       return new PVector(0,0);
     }
+  }
+  PVector escape(PVector predator){
+    float radius = 50;
+    float distance = PVector.dist(position, predator);
+    if (distance > 0 && distance < radius){
+      PVector goAway = PVector.sub(position, predator);
+      goAway.normalize();
+      goAway.mult(maxspeed);
+      PVector steering = PVector.sub(goAway, velocity);
+      steering.limit(maxforce*3);
+      return steering;
+    }
+    return new PVector(0,0);
   } 
 }

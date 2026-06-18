@@ -92,22 +92,29 @@ class Background{
             }
         }
     }
+    //method to update the boids
+    void updateBoide(PVector pre){
+        for (Boid b : boidOne){
+            b.run(boidOne, pre);
+        }
+    }
 
     // display the boide so the birds -- andavce for loop
     void displayBoide(){
         for (Boid b : boidOne) {
-            b.run(boidOne);
+            b.render();
         }
     }
 
     // method to update the mountain and the road based on the current speed
-    void update(float currentSpeed){
+    void update(float currentSpeed, PVector predator){
         this.speed = currentSpeed; // assaign to speed of this class the currentSpeed
         moveRoad();
         for (Mountain m : mountains){
             m.scrollSpeed = currentSpeed / 500; // so it doesn't zoom to fast
             m.update();
         }
+        updateBoide(predator);
     }
 
     // method to display the bacground -- calling other methods
