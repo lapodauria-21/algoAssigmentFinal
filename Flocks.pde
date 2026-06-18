@@ -196,17 +196,20 @@ class Boid {
       return new PVector(0,0);
     }
   }
+
+  // method tyhat requires a predator calculate the distance and push with a force away the flock
   PVector escape(PVector predator){
-    float radius = 50;
+    float radius = 50; // radius of pred
     float distance = PVector.dist(position, predator);
     if (distance > 0 && distance < radius){
-      PVector goAway = PVector.sub(position, predator);
-      goAway.normalize();
+      PVector goAway = PVector.sub(position, predator); // sub tract position and distance -- goies away from pred
       goAway.mult(maxspeed);
-      PVector steering = PVector.sub(goAway, velocity);
+      PVector steering = PVector.sub(goAway, velocity); 
       steering.limit(maxforce*3);
       return steering;
     }
-    return new PVector(0,0);
+    else{
+      return new PVector(0,0);
+    }
   } 
 }

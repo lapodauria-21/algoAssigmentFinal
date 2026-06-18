@@ -17,15 +17,16 @@ class Background{
     PImage img;
 
     float speed;
-    int nStars, nBirds;
+    int nStars, nBirds, nClouds;
 
     // consttoctor of the class -- to inizialize the objects & parameters
-    Background(float speed, int nOfStars, int nOfBirds){ // we need the speed of the background for this parameters
+    Background(float speed, int nOfStars, int nOfBirds, int nOfClouds){ // we need the speed of the background for this parameters
         this.position = new PVector(0, height/2);
         this.speed = speed;
 
         this.nStars = nOfStars;
         this.nBirds = nOfBirds;
+        this.nClouds = nOfClouds;
 
         this.mountains = new ArrayList<Mountain>(); // inizialinzing the array list
         // Create mountains with different colors
@@ -40,7 +41,7 @@ class Background{
         }
 
         this.clouds = new ArrayList<Cloud>(); // same thing for thew clouds
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < nOfClouds; i++) {
         clouds.add(new Cloud()); 
         }
 
@@ -106,7 +107,7 @@ class Background{
         }
     }
 
-    // method to update the mountain and the road based on the current speed
+    // method to update the mountain and the road based on the current speed and also passed the predator 
     void update(float currentSpeed, PVector predator){
         this.speed = currentSpeed; // assaign to speed of this class the currentSpeed
         moveRoad();

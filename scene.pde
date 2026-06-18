@@ -7,14 +7,14 @@ class Scene{
     ObstacleManager obstacles;
 
     // inzizilize each object
-    Scene(int nOfBirds, int nOfStars, int nOfParticles){
+    Scene(int nOfBirds, int nOfStars, int nOfParticles, int nOfClouds){
         car = new Car(new PVector(width/4, height/2), nOfParticles);
-        bg = new Background(4, nOfStars, nOfBirds);
+        bg = new Background(4, nOfStars, nOfBirds, nOfClouds);
         obstacles = new ObstacleManager();
     }
     //method to update the scene 
     void updateScene(){
-        bg.update(car.speedBackground, new PVector(mouseX, mouseY)); // change the speed of the bacground
+        bg.update(car.speedBackground, new PVector(mouseX, mouseY)); // change the speed of the bacground -- also passed cordinate of mouse as pred
         obstacles.update(car.speedBackground, bg.roadTop(), bg.roadBottom(), car.heightCar); // Limit the car and update obstacles
         car.moveCar(bg.roadTop(), bg.roadBottom()); // move car and keep it in the limit
         if(obstacles.checkForCollision(car.pos, car.widthCar, car.heightCar)){ // check for collision then update
@@ -32,7 +32,7 @@ class Scene{
         if (key == 's' || key == 'S'){
             car.accelerate(2);
         }
-        else if (key == 'W' || key == 'W' ){
+        else if (key == 'w' || key == 'W' ){
             car.accelerate(-2);
         }
         
