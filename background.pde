@@ -124,12 +124,6 @@ class Background{
         displayRoad();
         displayBoide();
     }
-
-    // method to change the speed -- every time take the maxium between the two values
-    void accelerate(float ammount){
-        speed = max(0, speed + (ammount*-1));
-    }
-
     // method that return the float for the top road
     float roadTop(){
         return position.y;
