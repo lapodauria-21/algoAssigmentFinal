@@ -98,7 +98,6 @@ class Car{
         left.displacement = 0;
         right.velocity = 0;
         right.displacement = 0;
-        //showParticles();
     }
 
     void displayCar(){ // display the car

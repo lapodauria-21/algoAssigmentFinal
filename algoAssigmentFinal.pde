@@ -9,6 +9,9 @@ final int N_birds = 40;
 final int N_particles = 5;
 final int N_clouds = 10;
 
+// variables for reading the mouse position
+PVector mousePosition = new PVector(0,0);
+
 // we are creating the object responsable for having the whole scene
 Scene scene;
 void setup(){
@@ -19,7 +22,7 @@ void setup(){
 // method to draw each frame
 void draw(){
     background(255);
-    scene.updateScene();
+    scene.updateScene(mousePosition);
     scene.displayScene();
 }
 //Method that check if a key was pressed and call the method in scene parsing the key
@@ -34,4 +37,9 @@ void keyReleased(){
 void mousePressed(){
     PVector click = new PVector(mouseX, mouseY);
     scene.handleClick(click);
+}
+
+// method that read position of mouse
+void mouseMoved(){
+    mousePosition = new PVector(mouseX, mouseY);
 }

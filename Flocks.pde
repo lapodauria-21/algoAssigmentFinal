@@ -204,7 +204,8 @@ class Boid {
     if (distance > 0 && distance < radius){
       PVector goAway = PVector.sub(position, predator); // sub tract position and distance -- goies away from pred
       goAway.mult(maxspeed);
-      PVector steering = PVector.sub(goAway, velocity); 
+      PVector steering = PVector.sub(goAway, velocity);
+      steering.normalize(); // so the steering is 1 
       steering.limit(maxforce*3);
       return steering;
     }
