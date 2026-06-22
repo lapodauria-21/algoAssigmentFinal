@@ -37,8 +37,8 @@ class Car{
         this.hitCoolDown = 0;
         LeftPosition = new PVector(pos.x + 10, pos.y + heightCar /2);
         RightPosition = new PVector(pos.x + 40, pos.y + heightCar /2);
-        left = new MSDS(1, 20, 0.3, 0.4, LeftPosition);
-        right = new MSDS(1, 20, 0.3, 0.4, RightPosition);
+        left = new MSDS(1, 20, 0.3, 0.09, LeftPosition);
+        right = new MSDS(1, 20, 0.3, 0.09, RightPosition);
     }
     
     // method resposable to move the car -- we pass the bottom road and top road 
@@ -135,8 +135,8 @@ class Car{
     // method to start the oscillasition of the suspension and other interaction based if the car has collided
     void itCollided(){
         hitCoolDown = 60;
-        left.applayForce(8);
-        right.applayForce(8);
+        left.applayForce(6);
+        right.applayForce(6);
         speedBackground = max(0, speedBackground - 2);
         speedCar = 0;
         for (int i = 0; i<15; i++ ){ // add sparks -- based on the copy of the position

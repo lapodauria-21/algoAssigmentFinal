@@ -10,7 +10,7 @@ class MSDS {
   float restLength;
   float velocity;
   float displacement;
-  float connectedForce;
+  //float connectedForce;
   PVector anchor;
 
   //constructor that inizilize the variables that we need
@@ -25,20 +25,20 @@ class MSDS {
     this.force = 0;
     this.velocity = 0;
     this.displacement = 0;
-    this.connectedForce = 0;
+    //this.connectedForce = 0;
   }
 
   // update the MSDS based on the physics rule
   void update() {
     float springForce = -springConstant * displacement;
     float dampForce = -damping * velocity;
-    force = springForce + dampForce + connectedForce;
+    force = springForce + dampForce; //+ connectedForce;
     float acceleration = force / mass;
     velocity += acceleration;
     displacement += velocity;
     position.x = anchor.x;
     position.y = anchor.y + restLength + displacement;
-    connectedForce = 0;
+    //connectedForce = 0;
   }
 
   // method to applay a force
