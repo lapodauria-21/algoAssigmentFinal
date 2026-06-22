@@ -6,15 +6,18 @@ class Scene{
     Background bg;
     ObstacleManager obstacles;
 
+    PVector mousePos;
+
     // inzizilize each object
     Scene(int nOfBirds, int nOfStars, int nOfParticles, int nOfClouds){
         car = new Car(new PVector(width/4, height/2), nOfParticles);
         bg = new Background(4, nOfStars, nOfBirds, nOfClouds);
         obstacles = new ObstacleManager();
+        mousePos = new PVector(0,0);
     }
     //method to update the scene 
-    void updateScene(PVector predator){
-        bg.update(car.speedBackground, predator); // change the speed of the bacground -- also passed cordinate of mouse as pred
+    void updateScene(){
+        bg.update(car.speedBackground, mousePos); // change the speed of the bacground -- also passed cordinate of mouse as pred
         obstacles.update(car.speedBackground, bg.roadTop(), bg.roadBottom(), car.heightCar); // Limit the car and update obstacles
         car.moveCar(bg.roadTop(), bg.roadBottom()); // move car and keep it in the limit
         if(obstacles.checkForCollision(car.pos, car.widthCar, car.heightCar)){ // check for collision then update
@@ -44,5 +47,10 @@ class Scene{
     // method that pass the PVector if there was a click
     void handleClick(PVector click){
         car.clickCar(click);
+    }
+
+    // method to handel the position of the mouse
+    void handleMouseMuvment(PVector pos){
+        mousePos = pos;
     }
 }
