@@ -6,6 +6,7 @@ class Scene{
     Background bg;
     ObstacleManager obstacles;
 
+    // variable for position of mouse
     PVector mousePos;
 
     // inzizilize each object

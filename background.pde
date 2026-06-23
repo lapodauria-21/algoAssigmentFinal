@@ -34,7 +34,7 @@ class Background{
         mountains.add(new Mountain(0, 0.008, 60, position.y - 30, color(80, 130, 80))); 
 
         boidOne = new ArrayList<Boid>();
-        img = loadImage("swallows-bird-martins-bird-saw-wings-bird-isolated-swallows-bird-flying-with-wings-spread-png.png");
+        img = loadImage("bird.png");
 
         for (int i = 0; i < nBirds; i++) { // we are creating the array for the birds 
             boidOne.add(new Boid(random(0, width), random(0, height/2), img));

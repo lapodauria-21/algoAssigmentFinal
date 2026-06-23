@@ -1,7 +1,6 @@
 /*
 This class is based on creating obstacles using three images; however, if that doesn't work, 
-orange obstacles are generated instead.
-Fixed after hours of troubleshooting thanks to AI
+orange obstacles are generated instead. Fixed after hours of troubleshooting thanks to AI -- the generation of the rectangle
 */
 
 //class that create the obstacle --> update it and inzizialize it based on a random number for the immage 
@@ -22,9 +21,9 @@ class Obstacle {
         this.active   = true;
         this.hitTimer = 0;
 
-        imgOne   = loadImage("WhatsApp Image 2026-06-14 at 4.24.35 PM (1).png");
-        imgTwo   = loadImage("WhatsApp Image 2026-06-14 at 4.24.35 PM (2).png");
-        imgThree = loadImage("WhatsApp Image 2026-06-14 at 4.24.35 PM.png");
+        imgOne   = loadImage("cone.png");
+        imgTwo   = loadImage("wood.png");
+        imgThree = loadImage("rock.png");
 
         
         int randomNumber = (int) random(3);
@@ -37,7 +36,7 @@ class Obstacle {
         
         if (currentImg != null) { // case where immage is not null
             float targetH = 60;
-            float ratio   = (float) currentImg.width / currentImg.height; // making bit smaller --> still keeping the proportion
+            float ratio = (float) currentImg.width / currentImg.height; // making bit smaller --> still keeping the proportion
             this.h = targetH;
             this.w = targetH * ratio;
         } else { // in case assaign a random width and height

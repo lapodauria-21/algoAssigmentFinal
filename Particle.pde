@@ -55,11 +55,11 @@ class Smoke extends Particle{
 class Spark extends Particle{
   Spark(PVector spawn){
     super (spawn);
-    acceleration = new PVector(0, 0.15);
-    velocity = PVector.random2D().mult(random(2,6));
+    acceleration = new PVector(0, 0.15); // simualte gravity
+    velocity = PVector.random2D().mult(random(2,6)); // Pvector lenght 1 in a random  360 deg direction -- multiplied by a random number between 2,6
     lifespan = 60;
   }
-  @Override
+  @Override // we do this to ovveride and display the propere particle that we want
   void display(){
     noStroke();
     fill(255, 150, 0, lifespan * 3.5);

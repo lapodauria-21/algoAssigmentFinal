@@ -202,11 +202,11 @@ class Boid {
     float radius = 50; // radius of pred
     float distance = PVector.dist(position, predator);
     if (distance > 0 && distance < radius){
-      PVector goAway = PVector.sub(position, predator); // sub tract position and distance -- goies away from pred
+      PVector goAway = PVector.sub(position, predator); // vector from predator to boide
       goAway.mult(maxspeed);
-      PVector steering = PVector.sub(goAway, velocity);
+      PVector steering = PVector.sub(goAway, velocity); // PVector for going away
       steering.normalize(); // so the steering is 1 
-      steering.limit(maxforce*3);
+      steering.limit(maxforce*3);// gave more inpact than other forces
       return steering;
     }
     else{

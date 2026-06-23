@@ -92,8 +92,9 @@ class Car{
         }
     } 
 
+    // method that makes the tier stop
     void stopTier(){ //this was suggested by ChatGPT becuase we coundn't figure out a way to stop the tiers to continue moving
-        speedCar = 0; // stop the speed of the car --> then stop every component of the MSDS
+        // stop every component of the MSDS
         left.velocity = 0;
         left.displacement = 0;
         right.velocity = 0;
