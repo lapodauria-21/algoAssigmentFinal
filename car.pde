@@ -75,6 +75,11 @@ class Car{
         else{
             speedBackground += acceleration;
         }
+
+        // so it doesn't increment indefently 
+        if (speedBackground > 50 ){
+            speedBackground = 50;
+        }
     }
 
     void decelerate(){ // stop only the car movement, background stays moving

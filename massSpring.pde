@@ -25,7 +25,7 @@ class MSDS {
     this.force = 0;
     this.velocity = 0;
     this.displacement = 0;
-    //this.connectedForce = 0;
+
   }
 
   // update the MSDS based on the physics rule
@@ -38,7 +38,6 @@ class MSDS {
     displacement += velocity;
     position.x = anchor.x;
     position.y = anchor.y + restLength + displacement;
-    //connectedForce = 0;
   }
 
   // method to applay a force
