@@ -21,7 +21,7 @@ class Scene{
         bg.update(car.speedBackground, mousePos); // change the speed of the bacground -- also passed cordinate of mouse as pred
         obstacles.update(car.speedBackground, bg.roadTop(), bg.roadBottom(), car.heightCar); // Limit the car and update obstacles
         car.moveCar(bg.roadTop(), bg.roadBottom()); // move car and keep it in the limit
-        if(obstacles.checkForCollision(car.pos, car.widthCar, car.heightCar)){ // check for collision then update
+        if(car.hitCoolDown == 0 && obstacles.checkForCollision(car.pos, car.widthCar, car.heightCar)){ // check for collision then update
         car.itCollided();
         }
     }

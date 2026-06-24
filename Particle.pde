@@ -32,7 +32,7 @@ class Particle{
     ellipse(position.x, position.y, 12, 12);
   }
 
-  // Is the particle still useful?
+  // Is the particle still useful? -- using the lifespan to check 
   boolean isDead() {
     if (lifespan < 0.0) {
       return true;
@@ -42,6 +42,10 @@ class Particle{
     }
   }
 }
+
+/*
+this two classes are an extension of the main one, use the same method but differetn constructor --> super spawn
+*/
 
 class Smoke extends Particle{
   Smoke(PVector spawn){
@@ -55,11 +59,11 @@ class Smoke extends Particle{
 class Spark extends Particle{
   Spark(PVector spawn){
     super (spawn);
-    acceleration = new PVector(0, 0.15); // simualte gravity
-    velocity = PVector.random2D().mult(random(2,6)); // Pvector lenght 1 in a random  360 deg direction -- multiplied by a random number between 2,6
+    acceleration = new PVector(0, 0.15); // simulate gravity
+    velocity = PVector.random2D().mult(random(2,6)); // this create a vector velocity with lenght 1 in random 350 deg pos -- mult
     lifespan = 60;
   }
-  @Override // we do this to ovveride and display the propere particle that we want
+  @Override // method to overide the original display 
   void display(){
     noStroke();
     fill(255, 150, 0, lifespan * 3.5);
